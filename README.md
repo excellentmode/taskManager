@@ -12,7 +12,7 @@
 
    ```bash
    git clone https://github.com/excellentmode/taskManager.git
-   cd task-manager
+   cd taskManager
    ```
 
 2. Запустите приложение:
