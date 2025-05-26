@@ -11,7 +11,7 @@
 1. Клонируйте репозиторий:
 
    ```bash
-   git clone https://github.com/your-username/task-manager.git
+   git clone [https://github.com/your-username/task-manager.git](https://github.com/excellentmode/taskManager.git)
    cd task-manager
    ```
 
