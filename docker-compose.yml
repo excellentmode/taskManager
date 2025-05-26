@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  backend:
+    #todo wait-for-it
+    restart: on-failure
+
+    build: ./backend
+    container_name: flask_app
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=backend
+    volumes:
+      - .:/app
+    working_dir: /app
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    container_name: vue_app
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - vue_node_modules:/app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:5000"
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: db_task_manager
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+  vue_node_modules:
