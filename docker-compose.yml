@@ -3,27 +3,26 @@ version: '3.8'
 services:
   backend:
     build:
-      context: .
-      dockerfile: backend/Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: flask_app
     ports:
       - "5000:5000"
     environment:
       - FLASK_ENV=development
       - FLASK_APP=backend
-    working_dir: /app
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/db_task_manager
     depends_on:
       - db
 
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile
     container_name: vue_app
     ports:
       - "5173:5173"
     environment:
-      - VITE_API_URL=http://localhost:5000
+      - VITE_API_URL=http://backend:5000
     depends_on:
       - backend
 
@@ -34,6 +33,6 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: db_task_manager
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db_task_manager

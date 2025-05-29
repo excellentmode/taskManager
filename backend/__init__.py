@@ -40,3 +40,5 @@ def create_app(test_config=None):
             print("Ошибка при подключении к базе данных:", e)
 
     return app
+
+app = create_app()
