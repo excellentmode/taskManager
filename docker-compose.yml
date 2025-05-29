@@ -12,6 +12,7 @@ services:
       - FLASK_ENV=development
       - FLASK_APP=backend
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/db_task_manager
+    command: [ "/wait-for-it.sh", "db:5432", "--", "flask", "run", "--host=0.0.0.0" ]
     depends_on:
       - db
 

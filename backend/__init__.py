@@ -33,8 +33,12 @@ def create_app(test_config=None):
 
     with app.app_context():
         try:
+            from backend.models.user import User
+            from backend.models.task import Task
             from backend.migrations.init_data import initialize_data
+            print(">>> Запускаем create_all")
             database.create_all()
+            print(">>> create_all завершён")
             initialize_data()
         except Exception as e:
             print("Ошибка при подключении к базе данных:", e)
